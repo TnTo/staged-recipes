@@ -1,0 +1,46 @@
+{% set name = "ASLPAw" %}
+{% set version = "2.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/fsssosei/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
+  sha256: ead56d005fee7ab70f166cc59fee7402b6e110cf93510ad2d93c7cb23025f11a
+  patches:
+    - dependencies.patch
+
+build:
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - mpc
+    - mpfr
+    - gmp
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - networkx
+    - scikit-learn
+
+test:
+  imports:
+    - ASLPAw_package
+
+about:
+  home: https://github.com/fsssosei/ASLPAw
+  license: AGPL-3.0-only
+  license_family: AGPL
+  license_file: LICENSE
+  summary: 'Adaptive overlapping community discovery algorithm package in python.'
+
+extra:
+  recipe-maintainers:
+    - TnTo
+
