@@ -1,0 +1,75 @@
+{% set name = "cdlib" %}
+{% set version = "0.2.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://github.com/GiulioRossetti/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
+  sha256: 1d35bcc3ef35925efbfb6cadd64a095891ae1a94133bdcf2f03a1e65e02b7fdb
+
+build:
+  noarch: python
+  number: 0
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  build:
+    - python
+    # - {{ compiler('c') }}
+  host:
+    - python
+    - pip
+  run:
+    - python
+    - graph-tool 
+    - python-igraph
+    - leidenalg
+    - numpy
+    - future
+    - matplotlib
+    - scikit-learn
+    - matplotlib
+    - scikit-learn
+    - tqdm
+    - networkx
+    - python-louvain
+    - scipy
+    - pulp
+    - seaborn
+    - pandas
+    - karateclub
+    - pooch
+    - wurlitzer
+    - pyclustering
+    - pip
+
+
+
+test:
+  imports:
+    - cdlib
+  requires:
+    - pytest
+  source_files:
+    - cdlib/test
+  commands:
+    - pytest
+
+about:
+  home: https://github.com/GiulioRossetti/cdlib
+  license: BSD-2-Clause
+  license_family: BSD
+  license_file: LICENSE
+  summary: 'CDlib is a meta-library for community discovery in complex networks'
+  # The remaining entries in this section are optional, but recommended.
+  description: |
+    CDlib is a meta-library for community discovery in complex networks: it implements algorithms, clustering fitness functions as well as visualization facilities.
+    CDlib is designed around the networkx python library: however, when needed, it takes care to automatically convert (from and to) igraph object so to provide an abstraction on specific algorithm implementations to the final user.
+    CDlib provides a standardized input/output facilities for several Community Discovery algorithms: whenever possible, to guarantee literature coherent results, implementations of CD algorithms are inherited from their original projects (see for instance Infomap, Louvain, Leiden).
+  doc_url: https://cdlib.readthedocs.io/
+
+extra:
+  recipe-maintainers:
+    - TnTo
