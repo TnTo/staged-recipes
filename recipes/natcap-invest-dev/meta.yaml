@@ -42,6 +42,7 @@ requirements:
     - requests
     - pyside2 !=5.15.0
     - flask
+    - babel
 
 test:
   imports:
